@@ -1,0 +1,19 @@
+---
+ - import_tasks: cordon_node.yaml
+   tags:
+     - stop
+ - import_tasks: stop_services.yaml
+   tags:
+     - stop
+ - import_tasks: shutdown_node.yaml
+   tags:
+     - stop
+ - import_tasks: start_services.yaml
+   tags:
+     - start
+ - import_tasks: uncordon_node.yaml
+   tags:
+     - start
+ - import_tasks: debug_task.yaml
+   tags:
+     - test

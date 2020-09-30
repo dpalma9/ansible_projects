@@ -1,0 +1,19 @@
+---
+- name: Shutdown node
+  command: /sbin/shutdown -h now
+  ignore_errors: true
+
+- name: Check if node is down # fails if Node is not down after 2 minutes
+  wait_for_connection:
+    delay: 10
+    timeout: 120
+  retries: 2
+  delay: 10
+  until: False
+
+## Same task using ping module
+#- name: Ping a los servidores
+#  ping:
+#  retries: 2
+#  delay: 20
+#  until: False

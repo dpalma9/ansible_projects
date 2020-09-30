@@ -1,0 +1,13 @@
+---
+- name: Check if node is up
+  wait_for_connection:
+    delay: 10
+    timeout: 120
+
+- name: Start services
+  systemd:
+    name: "{{ item }}"
+    state: started
+  with_items:
+    - kubelet
+    - docker

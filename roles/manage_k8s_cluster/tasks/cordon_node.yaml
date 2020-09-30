@@ -1,0 +1,4 @@
+---
+- name: Cordon node
+  command: "kubectl cordon {{ inventory_hostname }}"
+  delegate_to: "localhost"

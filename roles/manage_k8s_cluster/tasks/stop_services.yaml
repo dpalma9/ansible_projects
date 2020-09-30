@@ -1,0 +1,20 @@
+---
+# SchedulingDisabled: unschedulable = true
+# else unschedulable key doesn't exist
+- name: Check if node is schedulable
+  shell: >-
+     kubectl get node {{ inventory_hostname }}
+     -o jsonpath='{ .spec.unschedulable }'
+  register: kubectl_node_schedulable
+  delegate_to: "localhost"
+  failed_when: false
+  changed_when: true
+  # se podria meter un retry aqui tambien
+
+- name: Stop services when node is unschedulable
+  systemd:
+    name: "{{ item }}"
+    state: stopped
+  with_items:
+    - kubelet
+    - docker
